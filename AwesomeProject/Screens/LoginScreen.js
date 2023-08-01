@@ -3,38 +3,59 @@ import {
     Text,
     View,
     TextInput,
-    Button,
     Pressable,
+    ImageBackground,
   } from "react-native";
 
   export default  LoginScreen=()=> {
+    
     return(
+        <View style={styles.main}>
+         <ImageBackground source={require('../image/back.png')}
+         style={styles.image}></ImageBackground>
         <View style={styles.container}>
         <Text style={styles.title}>Увійти</Text> 
-        <TextInput style={styles.input}>Адреса електронної пошти</TextInput>
-        <TextInput style={styles.input}>Пароль
-        <Text style={styles.textInput}>Показати</Text>
+        <TextInput style={styles.input} placeholder="Адреса електронної пошти"></TextInput>
+        <View>
+        <TextInput style={styles.input} placeholder="Пароль">
         </TextInput>
+       
+        <Text style={styles.textInput}>Показати</Text>
+        </View>
         <Pressable style={styles.button}>
      <Text style={styles.textButton}>Увійти</Text>
      </Pressable>
         <Text style={styles.text}>Немає акаунту? Зареєструватись</Text>
+        </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
+        width:375,
+        height:489,
+        backgroundColor: '#FFFFFF',
       alignItems: 'center',
-      justifyContent: 'center',
+      borderRadius: 25,
+      marginTop:323,
+    },
+    main:{
+        width:375,
+        height: 812,
+
+    },
+    image: {
+        position: 'absolute',
+        width: 375,
+        height: 812,
     },
     title: {
    fontSize: 30,
    lineHeight: 35.16,
    fontWeight: 'bold',
    marginBottom: 32,
+   paddingTop:32,
     },
     input: {
      width: 343,
@@ -44,7 +65,7 @@ const styles = StyleSheet.create({
      backgroundColor: '#F6F6F6',
      paddingLeft: 16,
      color: "#BDBDBD",
-      
+      position:"relative"
     },
     text: {
         fontSize:16,
@@ -69,9 +90,9 @@ const styles = StyleSheet.create({
     },
     textInput: {
     color:"#1B4371",
-    position: "absolute", 
-    right: 320,
-    top: 1600,
+    position: 'absolute', 
+    right: 32,
+    top: 16,
     
     }
   });

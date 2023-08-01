@@ -4,36 +4,62 @@ import {
   Text,
   View,
   TextInput,
-  Pressable
+  Pressable,
+  ImageBackground,
+  Image,
 } from "react-native";
+
 
 export default  RegistrationScreen=()=> {
     return(
+       <View style={styles.main}>
+         <ImageBackground source={require('../image/back.png')}
+         style={styles.image}></ImageBackground>
         <View style={styles.container}>
+          <Image style={{width: 120, height: 120, backgroundColor: '#F6F6F6', borderRadius: 16, position: 'absolute', top: -50}}>
+
+          </Image>
         <Text style={styles.title}>Реєстрація</Text> 
-        <TextInput style={styles.input}>Логін</TextInput>
-        <TextInput style={styles.input}>Адреса електронної пошти</TextInput>
-        <TextInput style={styles.input}>Пароль</TextInput>
+        <TextInput style={styles.input} placeholder="Логін"></TextInput>
+        <TextInput style={styles.input} placeholder="Адреса електронної пошти"></TextInput>
+        <View>
+        <TextInput style={styles.input} placeholder="Пароль"></TextInput>
+        <Text style={styles.textInput}>Показати</Text>
+        </View>
         <Pressable style={styles.button}>
           <Text style={styles.textButton}>Зареєструватися</Text>
         </Pressable>
         <Text style={styles.text}>Вже є акаунт? Увійти</Text>
+        </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
+      width:375,
+      height:489,
+      backgroundColor: '#FFFFFF',
       alignItems: 'center',
-      justifyContent: 'center',
+      borderRadius: 25,
+      marginTop:323,
+    },
+     main:{
+        width:375,
+        height: 812,
+
+    },
+    image: {
+        position: 'absolute',
+        width: 375,
+        height: 812,
     },
     title: {
    fontSize: 30,
    lineHeight: 35.16,
    fontWeight: 'bold',
    marginBottom: 32,
+   paddingTop: 92,
     },
     input: {
      width: 343,
@@ -63,5 +89,12 @@ const styles = StyleSheet.create({
       lineHeight: 19,
       alignItems: 'center',
       padding: 16,
-      }
+      },
+      textInput: {
+    color:"#1B4371",
+    position: "absolute", 
+    right: 32,
+    top: 16,
+    
+    }
   });
