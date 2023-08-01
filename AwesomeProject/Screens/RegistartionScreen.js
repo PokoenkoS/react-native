@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,31 +8,68 @@ import {
   Pressable,
   ImageBackground,
   Image,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
+  Alert
 } from "react-native";
 
 
 export default  RegistrationScreen=()=> {
+  const [text, setText] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onRegistaration = () => {
+    Alert.alert("Credentials", `${text} + ${password}`);
+  };
+  
+
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
        <View style={styles.main}>
          <ImageBackground source={require('../image/back.png')}
          style={styles.image}></ImageBackground>
         <View style={styles.container}>
           <Image style={{width: 120, height: 120, backgroundColor: '#F6F6F6', borderRadius: 16, position: 'absolute', top: -50}}>
-
           </Image>
         <Text style={styles.title}>Реєстрація</Text> 
-        <TextInput style={styles.input} placeholder="Логін"></TextInput>
-        <TextInput style={styles.input} placeholder="Адреса електронної пошти"></TextInput>
+        <KeyboardAvoidingView 
+         behavior={Platform.OS == "ios" ? "padding" : "height"}
+         >
+        <TextInput 
+        style={styles.input} 
+        placeholder="Логін"
+        value={text}
+        onChangeText={setText}
+        />
+        <TextInput 
+        value={email}
+        onChangeText={setEmail}
+        style={styles.input} 
+        placeholder="Адреса електронної пошти"
+        />
         <View>
-        <TextInput style={styles.input} placeholder="Пароль"></TextInput>
+        <TextInput 
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+        style={styles.input} 
+        placeholder="Пароль"
+        />
         <Text style={styles.textInput}>Показати</Text>
         </View>
-        <Pressable style={styles.button}>
+        </KeyboardAvoidingView>
+        <Pressable style={styles.button} onPress={onRegistaration}>
           <Text style={styles.textButton}>Зареєструватися</Text>
         </Pressable>
         <Text style={styles.text}>Вже є акаунт? Увійти</Text>
+        
         </View>
         </View>
+        
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -68,7 +106,8 @@ const styles = StyleSheet.create({
      borderRadius: 10,
      backgroundColor: '#F6F6F6',
      paddingLeft: 16,
-     color: "#BDBDBD",   
+     color: "#BDBDBD",
+        
     },
     text: {
         fontSize:16,
@@ -76,7 +115,7 @@ const styles = StyleSheet.create({
     },
     button: {
       borderRadius: 100,
-      maginTop: 27,
+      marginTop: 27,
       marginBottom: 16,
       width: 343,
       height: 50,

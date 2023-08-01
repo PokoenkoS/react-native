@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -5,29 +6,55 @@ import {
     TextInput,
     Pressable,
     ImageBackground,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    Keyboard,
+    Platform,
+    Alert
   } from "react-native";
 
   export default  LoginScreen=()=> {
+     const [email, setEmail] = useState("");
+     const [password, setPassword] = useState("");
+
+     const onLogin = () => {
+    Alert.alert("Credentials", `${email}`);
+  };
     
     return(
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.main}>
          <ImageBackground source={require('../image/back.png')}
          style={styles.image}></ImageBackground>
         <View style={styles.container}>
         <Text style={styles.title}>Увійти</Text> 
-        <TextInput style={styles.input} placeholder="Адреса електронної пошти"></TextInput>
+        <KeyboardAvoidingView 
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        >
+        <TextInput 
+        value={email}
+        onChangeText={setEmail}
+        style={styles.input} 
+        placeholder="Адреса електронної пошти"
+        />
         <View>
-        <TextInput style={styles.input} placeholder="Пароль">
-        </TextInput>
-       
+        <TextInput 
+        value={password}
+        onChangeText={setPassword}
+        style={styles.input} 
+        secureTextEntry
+        placeholder="Пароль"
+        />
         <Text style={styles.textInput}>Показати</Text>
         </View>
-        <Pressable style={styles.button}>
+        </KeyboardAvoidingView>
+        <Pressable style={styles.button} onPress={onLogin}>
      <Text style={styles.textButton}>Увійти</Text>
      </Pressable>
         <Text style={styles.text}>Немає акаунту? Зареєструватись</Text>
         </View>
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 
