@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import {
     StyleSheet,
@@ -10,16 +11,13 @@ import {
     KeyboardAvoidingView,
     Keyboard,
     Platform,
-    Alert
-  } from "react-native";
+    } from "react-native";
 
   export default  LoginScreen=()=> {
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
+      const navigation = useNavigation();
 
-     const onLogin = () => {
-    Alert.alert("Credentials", `${email}`);
-  };
     
     return(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -48,10 +46,14 @@ import {
         <Text style={styles.textInput}>Показати</Text>
         </View>
         </KeyboardAvoidingView>
-        <Pressable style={styles.button} onPress={onLogin}>
+        <Pressable style={styles.button} onPress={() => navigation.navigate("Home", {screen:"PostScreen",params: {userEmail:`${email}`} })}>
      <Text style={styles.textButton}>Увійти</Text>
      </Pressable>
-        <Text style={styles.text}>Немає акаунту? Зареєструватись</Text>
+        <Text style={styles.text}>Немає акаунту?</Text>
+        <Pressable         
+        onPress={() => navigation.navigate("Registration")}
+      ><Text style={styles.textSing}>Зареєструватись</Text>
+      </Pressable>
         </View>
         </View>
         </TouchableWithoutFeedback>
@@ -121,5 +123,10 @@ const styles = StyleSheet.create({
     right: 32,
     top: 16,
     
+    },
+     textSing: {
+    position:"absolute",
+    top: -20,
+    left: 65,
     }
   });

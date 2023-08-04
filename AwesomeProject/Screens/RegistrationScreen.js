@@ -1,4 +1,4 @@
-
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -12,7 +12,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
-  Alert
 } from "react-native";
 
 
@@ -20,12 +19,9 @@ export default  RegistrationScreen=()=> {
   const [text, setText] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigation = useNavigation();
 
-  const onRegistaration = () => {
-    Alert.alert("Credentials", `${text} + ${password}`);
-  };
-  
-
+ 
     return(
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
        <View style={styles.main}>
@@ -61,12 +57,17 @@ export default  RegistrationScreen=()=> {
         <Text style={styles.textInput}>Показати</Text>
         </View>
         </KeyboardAvoidingView>
-        <Pressable style={styles.button} onPress={onRegistaration}>
+        <Pressable style={styles.button} onPress={() => navigation.navigate("Home", {screen:"PostScreen",params: {userEmail:`${email}`} })}>
           <Text style={styles.textButton}>Зареєструватися</Text>
         </Pressable>
-        <Text style={styles.text}>Вже є акаунт? Увійти</Text>
-        
-        </View>
+        <View>
+        <Text style={styles.text}>Вже є акаунт?</Text>
+        <Pressable         
+        onPress={() => navigation.navigate("Login")}
+      ><Text style={styles.textSing}>Увійти</Text>
+      </Pressable>
+      </View>
+         </View>
         </View>
         
         </TouchableWithoutFeedback>
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#FFFFFF',
       alignItems: 'center',
       borderRadius: 25,
-      marginTop:323,
+      marginTop: 203,
     },
      main:{
         width:375,
@@ -135,5 +136,10 @@ const styles = StyleSheet.create({
     right: 32,
     top: 16,
     
+    },
+    textSing: {
+    position:"absolute",
+    top: -20,
+    left: 110,
     }
   });
