@@ -59,8 +59,8 @@ const handleLocation = async ()=> {
       longitude: locations.coords.longitude,
     };
     setLocation(coords);
-    navigation.navigate( "PostScreen",{photo: `${photo}` ,
-    location:`${location}`, photoLocation:`${photoLocation}`, title:`${setTitle}`
+    navigation.navigate( "PostScreen",{photo: {photo} ,
+    location:{location}, photoLocation:{photoLocation},
   } 
     );
 }
@@ -152,7 +152,9 @@ const createPhoto = async () => {
       onChangeText={setTitle}
      />
      <View>
+      <Pressable onPress={() => navigation.navigate("Map",{location:location})}>
      <AntDesign name="enviromento" size={24} color="black" />
+     </Pressable>
      <TextInput
       placeholder="Місцевість"
       onChangeText={setPhotoLocation}

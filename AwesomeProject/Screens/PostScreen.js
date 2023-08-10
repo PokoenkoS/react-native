@@ -1,18 +1,21 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
-import { View, Text, StyleSheet,Image } from "react-native";
+import { View, Text, StyleSheet,Image, Pressable } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
 
 const PostScreen = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const {params: {userEmail,location, photo, photoLocation, title}} = useRoute();
   return (
 
     <View style={styles.container}>
-       {/* <Image source={{uri:{photo}}}/> */}
+       {/* <Image source={{uri:photo}}/> */}
       <Text>{userEmail}</Text>
      
-      <Text>{title} </Text>
-
+      {/* <Text>{title} </Text> */}
+      <Pressable onPress={() => navigation.navigate("Comments")} style={styles.takePhotoOut}>
+          <AntDesign name="message1" size={24} color={"black"} />
+          </Pressable>
     </View>
 
   );
@@ -24,6 +27,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor:"#FFFFFF",
+  },
+  takePhotoOut: {
+      height: 50,
+    width: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
+    marginTop: 400,
   },
 });
 
