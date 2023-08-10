@@ -21,12 +21,16 @@ const Home = () => {
   title: "Публікації",
   headerStyle: {
     backgroundColor: "#FFFFFF",
+   
   },
   tabBarShowLabel:false,
   headerTintColor: "#212121",
   headerTitleStyle: {
-    fontWeight: "bold",
-    fontSize: 20,
+    fontWeight: 500,
+    paddingLeft: 148,
+    fontSize: 17,
+    textAlign: "center",
+    lineHeight: 22,
   },
   headerRight: () => (
     <AntDesign name="logout" size={24} style={{
@@ -60,8 +64,11 @@ const Home = () => {
   tabBarShowLabel:false,
   headerTintColor: "#212121",
   headerTitleStyle: {
-    fontWeight: "bold",
-    fontSize: 20,
+    fontWeight: 500,
+    paddingLeft: 98,
+    fontSize: 17,
+    textAlign: "center",
+    lineHeight: 22,
   },
   
    tabBarIcon: ({focused,color,size}) => {
@@ -89,8 +96,11 @@ const Home = () => {
   tabBarShowLabel:false,
   headerTintColor: "#212121",
   headerTitleStyle: {
-    fontWeight: "bold",
-    fontSize: 20,
+    fontWeight: 500,
+    paddingLeft: 148,
+    fontSize: 17,
+    textAlign: "center",
+    lineHeight: 22,
   },
   
    tabBarIcon: ({focused,color,size}) => {
