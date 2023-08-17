@@ -12,12 +12,25 @@ import {
     Keyboard,
     Platform,
     } from "react-native";
+    import { useDispatch } from "react-redux";
+    import  {login}  from '../redux/auth/operations';
+
+    const intialRegistration = {
+      email: "",
+      password: "",
+    };
 
   export default  LoginScreen=()=> {
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
-      const navigation = useNavigation();
+     const [credentials, setCredential] = useState(intialRegistration);
+     const navigation = useNavigation();
 
+     const handleSubmit = ()=> {
+      dispatch(register(credentials));
+      setCredential(intialRegistration);
+      navigation.navigate("Registration")
+    }
     
     return(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

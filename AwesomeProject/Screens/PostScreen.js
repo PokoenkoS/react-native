@@ -3,17 +3,22 @@ import React from "react";
 import { View, Text, StyleSheet,Image, Pressable } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 
+
+
 const PostScreen = () => {
   const navigation = useNavigation();
-  const {params: {userEmail,location, photo, photoLocation, title}} = useRoute();
+  const {params: {userEmail,location, photo, photoLocation, title, id}} = useRoute();
   return (
 
     <View style={styles.container}>
        {/* <Image source={{uri:photo}}/> */}
       <Text>{userEmail}</Text>
      
-      {/* <Text>{title} </Text> */}
-      <Pressable onPress={() => navigation.navigate("Comments")} style={styles.takePhotoOut}>
+      <Text>{title} </Text>
+      <Pressable onPress={() => navigation.navigate("Comments", {
+                    id: id,
+                    photo: photo,
+                  })} style={styles.takePhotoOut}>
           <AntDesign name="message1" size={24} color={"black"} />
           </Pressable>
     </View>

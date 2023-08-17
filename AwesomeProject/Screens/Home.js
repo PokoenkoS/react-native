@@ -2,14 +2,21 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from '@expo/vector-icons';
-import { Button, View, Text } from "react-native";
+import { Button, View, Text, Pressable } from "react-native";
 import PostScreen from './PostScreen';
 import CreatePostsScreen from './CreatePostsScreen';
 import ProfileScreen from './ProfileScreen'
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../redux/auth/operations";
 
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  const handleLogOut = ()=> {
+    dispatch(logOutUser());
+  }
 
   return (
     <Tabs.Navigator>
@@ -33,10 +40,12 @@ const Home = () => {
     lineHeight: 22,
   },
   headerRight: () => (
+    <Pressable onPress={handleLogOut}>
     <AntDesign name="logout" size={24} style={{
       paddingRight:20
     }}
-     />),
+     />
+     </Pressable>),
    tabBarIcon: ({focused,color,size}) => {
     return(
       <View style={{

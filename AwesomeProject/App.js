@@ -13,6 +13,9 @@ import MapScreen from './Screens/MapScreen';
 import ProfileScreen from './Screens/ProfileScreen'
 import PostScreen from './Screens/PostScreen';
 import { useFonts } from 'expo-font';
+import { Provider } from "react-redux";
+import { store } from "./redux/store.js";
+import { PersistGate } from 'redux-persist/integration/react';
 
 const MainStack = createStackNavigator();
 
@@ -21,7 +24,8 @@ export default function App() {
     'Roboto-Black': require('./assets/fonts/Roboto/Roboto-Medium.ttf'),
   });
   return (
-   
+   <Provider store={store}>
+    {/* <PersistGate persistor={store.persistor}> */}
     <NavigationContainer>
       <MainStack.Navigator initialRouteName='RegistrationScreen'>
       <MainStack.Screen name='Registration' component={RegistrationScreen} />
@@ -35,6 +39,8 @@ export default function App() {
      {/* <StatusBar style="auto" /> */}
     </MainStack.Navigator>
     </NavigationContainer>
+    {/* </PersistGate> */}
+    </Provider>
   )
 }
 

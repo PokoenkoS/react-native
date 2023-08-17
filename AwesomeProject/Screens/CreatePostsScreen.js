@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Image } from "react-native";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
@@ -6,6 +7,9 @@ import * as Location from 'expo-location';
 import * as ImagePicker from "expo-image-picker";
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { addDoc, collection } from "firebase/firestore";
+import { db, storage } from "../firebase/config";
 
 const CreatePostScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -16,6 +20,8 @@ const CreatePostScreen = () => {
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
   const navigation = useNavigation();
+
+  const { userId, nickName } = useSelector((state) => state.auth);
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -51,8 +57,44 @@ if (hasPermission === false) {
 
 
 
-const handleLocation = async ()=> {
+const uploadPhotoToServer = async () => {
+  const response = await fetch(photo);
+  const file = await response.blob();
+  const uniquePostId = Date.now().toString();
+  const storageImage = ref(storage, `postImage/${uniquePostId}`);
+  await uploadBytes(storageImage, file);
+  const addedPhoto = await getDownloadURL(storageImage);
+  return addedPhoto;
+};
 
+const uploadPostToServer = async () => {
+  const photo = await uploadPhotoToServer();
+  const createPost = {
+    photo,
+    title,
+    photoLocation,
+    location,
+    userId,
+    nickName,
+  };
+  uploadPostToDatabase(createPost);
+  navigation.navigate("PostScreen", {
+    photo,
+    title,
+    photoLocation,
+    location,
+  });
+ 
+};
+
+const uploadPostToDatabase = async (post) => {
+   const docRef = await addDoc(collection(db, "post"), post);
+};
+
+
+
+const handleLocation = async ()=> {
+   uploadPostToServer();
   let locations = await Location.getCurrentPositionAsync({});
     const coords = {
       latitude: locations.coords.latitude,

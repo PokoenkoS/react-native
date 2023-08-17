@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {register} from '../redux/auth/operations'
 import {
   StyleSheet,
   Text,
@@ -14,14 +16,27 @@ import {
   Platform,
 } from "react-native";
 
+const intialRegistration = {
+  login: "",
+  email: "",
+  password: "",
+};
 
 export default  RegistrationScreen=()=> {
+
   const [text, setText] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [credentials, setCredential] = useState(intialRegistration);
   const navigation = useNavigation();
 
- 
+  const dispatch = useDispatch(); 
+
+  const handleSubmit = ()=> {
+    dispatch(register(credentials));
+    setCredential(intialRegistration);
+    navigation.navigate("Home", {screen:"PostScreen",params: {userEmail:`${email}`} })
+  }
     return(
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
        <View style={styles.main}>
@@ -57,7 +72,7 @@ export default  RegistrationScreen=()=> {
         <Text style={styles.textInput}>Показати</Text>
         </View>
         </KeyboardAvoidingView>
-        <Pressable style={styles.button} onPress={() => navigation.navigate("Home", {screen:"PostScreen",params: {userEmail:`${email}`} })}>
+        <Pressable style={styles.button} onPress={handleSubmit}>
           <Text style={styles.textButton}>Зареєструватися</Text>
         </Pressable>
         <View>
